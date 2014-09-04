@@ -16,8 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  */ 
 #include <Rcpp.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "CData.h"
 #include "CLcm.h"
 #include "CTrace.h"
@@ -33,7 +33,7 @@ void Iterate(CEnv* model, int iters) {
 */
 
 RCPP_MODULE(clcm){
-    using namespace Rcpp;
+  using namespace Rcpp;
 	using namespace R;
 	
 	class_<CEnv>( "Lcm" )

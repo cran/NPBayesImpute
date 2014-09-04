@@ -20,8 +20,8 @@
 #ifndef _CLcm_H
 #define _CLcm_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "CParam.h"
 #include "MersenneTwister.h"
 #include "SpecialFunctions.h"

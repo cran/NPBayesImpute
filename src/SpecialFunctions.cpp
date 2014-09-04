@@ -18,8 +18,8 @@
 //#include "stdafx.h"
 #include "MersenneTwister.h"
 #include "SpecialFunctions.h"
-#include <math.h>
-#include <errno.h>
+#include <cmath>
+#include <cerrno>
 SpecialFunctions::SpecialFunctions(void)
 {
 }

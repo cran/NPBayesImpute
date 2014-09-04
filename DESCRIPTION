@@ -1,7 +1,7 @@
 Package: NPBayesImpute
 Type: Package
 Title: Non-parametric Bayesian Multiple Imputation for Categorical Data
-Version: 0.1
+Version: 0.2
 Date: 2014-04-05
 Author: Quanli Wang, Daniel Manrique-Vallier, Jerome P. Reiter and Jingchen Hu
 Maintainer: Quanli Wang <quanli@stat.duke.edu>
@@ -10,7 +10,7 @@ License: GPL (>= 3)
 Depends: methods, Rcpp (>= 0.10.2)
 LinkingTo: Rcpp
 RcppModules: clcm
-Packaged: 2014-08-28 12:51:41 UTC; quanli
+Packaged: 2014-09-04 12:25:04 UTC; quanli
 NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2014-08-28 15:12:18
+Date/Publication: 2014-09-04 15:49:48

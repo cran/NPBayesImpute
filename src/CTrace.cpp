@@ -26,6 +26,7 @@ static const int NParaList = 8;
 CTrace::CTrace(CLcm* pm) {
 	trace = NULL;
 	m = pm;
+  mnsize = 0;
 }
 CTrace::~CTrace(void)
 {

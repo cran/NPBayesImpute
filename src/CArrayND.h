@@ -28,7 +28,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 #include <algorithm>
 #include <cstring>
 
@@ -52,7 +52,7 @@ public:
 		}
 	}
 	
-	static void* CreateArray(int dims, ...) {
+	static CArrayND<T>* CreateArray(int dims, ...) {
 		int lengths[20], i;
 		va_list args;
 		va_start(args, dims);
@@ -60,7 +60,7 @@ public:
 			lengths[i] = va_arg(args, int);
 		}
 		va_end(args);
-		return (new CArrayND<T>(dims, lengths))->data;
+		return (new CArrayND<T>(dims, lengths));
 	}
 	
 	static void *flat2arrayND(void* data, int size_elem, int dims, ...){

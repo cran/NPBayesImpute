@@ -20,7 +20,7 @@
 #define _CPARAM_H
 
 #include "CArrayND.h"
-#include <string.h>
+#include <cstring>
 #include "MersenneTwister.h"
 #include "SpecialFunctions.h"
 
@@ -39,15 +39,17 @@ public:
 	virtual ~CParam(); //Destructor
 
 	int *zI; //(z_i = k) i=1..N_MAX //just n
-	double **psiJKL; //(psi_{jkl}) l -> # of levels
 	double *nuK;
 	int *countK;
-
+  int **xIJ; //for holding data and augmented data.
+  double **psiJKL; //(psi_{jkl}) l -> # of levels
+  //auxiliary
+  int** aux_dirCumJK;
+  int **MCZ; //for holing a local copy of marginal conditions.
+  int **x2_NMax_J;
+  
 	//structure
 	int J, K, L, *levelsJ, n, *cumLevelsJ;
-
-	//auxiliary
-	int** aux_dirCumJK;
 
 	//DP parameters 
 	double *log_nuK;
@@ -56,12 +58,10 @@ public:
 	//priors
 	double a_alpha, b_alpha; // alpha ~ Gamma[a_alpha, b_alpha]
 
-	//partition
-	int **xIJ; //for holding data and augmented data.
-	int **MCZ; //for holing a local copy of marginal conditions. 
 	double *pZeroMC_I, prob_zero;
 	int *z2_Nmax;
-	int **x2_NMax_J;
+  
+	
 	unsigned int *count_partition; //imputed number of individuals in each partition
 	int Nmis, N_mis_max, nZeroMC;
 
@@ -88,6 +88,13 @@ public:
 	}
 
 private:
+  //partition
+  CArrayND<int> *xIJ_ND; //a workaround for memory leak 
+  CArrayND<int> *MCZ_ND; //a workaround for memory leak 
+  CArrayND<int> *x2_NMax_J_ND; //a workaround for memory leak
+  CArrayND<int> *aux_dirCumJK_ND;//a workaround for memory leak 
+  CArrayND<double> *psiJKL_ND;//a workaround for memory leak 
+
 	void class_construct(int J, int K, int L, int *levelsJ, int *cumLevelsJ, int n);
 	void class_construct(int Nmis_max, int** MCZ_, int nZeroMC, int **x);	
 };

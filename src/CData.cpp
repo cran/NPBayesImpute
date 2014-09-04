@@ -16,8 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * Modified by Quanli Wang, 2014
  */ 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -35,10 +35,10 @@ CData::CData(){
 CData::~CData(){
 	free(this->levelsJ);
 	free(this->cumLevelsJ);
-	free(this->x[0]);
+	//free(this->x[0]);
 	free(this->x);
 	if (this->nZeroMC > 0) {
-		free(this->ZeroMC_IJ[0]);
+		//free(this->ZeroMC_IJ[0]);
 		free(this->ZeroMC_IJ);
 	}
 }
@@ -49,7 +49,7 @@ void CData::Process_MC(){
 	int size;
 	int** newzeros = MC_to_MCpartition(ZeroMC_IJ, J, nZeroMC, levelsJ, size);
 	//replace the old list
-	free(this->ZeroMC_IJ[0]);
+	//free(this->ZeroMC_IJ[0]);
 	free(this->ZeroMC_IJ);
 	this->ZeroMC_IJ = newzeros;
 	this->nZeroMC = size;

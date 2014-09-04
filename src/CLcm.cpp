@@ -16,12 +16,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * Modified by Quanli Wang, 2014
  */ 
-#include <string.h>
-#include <math.h>
+#include <cstring>
+#include <cmath>
 
 #include "CData.h"
 #include "CLcm.h"
 #include "margin_conditions.h"
+#include "R.h" //for ISNAN function
 
 //--------------------------------------------------------------------------------
 // Implementation of class CLcm
@@ -193,7 +194,7 @@ void CLcm::sam_nu(){
 		  double lgamma2 = SpecialFunctions::log_gamma_rand(b,mt);
 		  double lsumgamma = SpecialFunctions::log_sum(lgamma1, lgamma2);
 		  par->log_nuK[k] = (lgamma1 - lsumgamma + l_acc_prod);
-      if (isnan(par->log_nuK[k])) {
+      if (ISNAN(par->log_nuK[k])) {
         par->log_nuK[k] = -50;
       }
       if (par->log_nuK[k] < -50) par->log_nuK[k] = -50;//approx 1e-22
@@ -202,7 +203,7 @@ void CLcm::sam_nu(){
 		  par->nuK[k] = exp(par->log_nuK[k]);
 	}
 	par->log_nuK[par->K -1] = l_acc_prod;
-  if (isnan(par->log_nuK[par->K-1])) {
+  if (ISNAN(par->log_nuK[par->K-1])) {
         par->log_nuK[par->K-1] = -50;
   }
   if (par->log_nuK[par->K-1] < -50) par->log_nuK[par->K - 1] = -50;//approx 1e-44

@@ -32,6 +32,14 @@ CParam::~CParam() {
 
 	delete [] count_partition;
 	*/
+  delete aux_dirCumJK_ND;
+  delete  psiJKL_ND;
+  delete xIJ_ND;
+  if (nZeroMC > 0) {
+    delete MCZ_ND;
+    delete x2_NMax_J_ND;
+  }
+  
 }
 
 void CParam::class_construct(int J, int K, int L, int *levelsJ, int *cumLevelsJ, int n){
@@ -46,9 +54,13 @@ void CParam::class_construct(int J, int K, int L, int *levelsJ, int *cumLevelsJ,
 	nuK = new double[K];
 	log_nuK = new double[K];
 	countK = new int[K];
-
-	aux_dirCumJK = (int **)CArrayND<int>::CreateArray(2, cumLevelsJ[J], K);
-	psiJKL = (double **) CArrayND<double>::CreateArray(2, cumLevelsJ[J], K);
+  
+  aux_dirCumJK_ND = CArrayND<int>::CreateArray(2, cumLevelsJ[J], K);
+  aux_dirCumJK = (int **)aux_dirCumJK_ND->data;
+  psiJKL_ND = CArrayND<double>::CreateArray(2, cumLevelsJ[J], K);
+  psiJKL = (double **)psiJKL_ND->data;
+	//aux_dirCumJK = (int **)CArrayND<int>::CreateArray(2, cumLevelsJ[J], K);
+	//psiJKL = (double **) CArrayND<double>::CreateArray(2, cumLevelsJ[J], K);
 }
 
 void CParam::class_construct(int Nmis_max, int** MCZ_, int nZeroMC, int **x){
@@ -62,17 +74,21 @@ void CParam::class_construct(int Nmis_max, int** MCZ_, int nZeroMC, int **x){
 		pZeroMC_I = new double[nZeroMC];
 		z2_Nmax = new int[Nmis_max];
 		count_partition = new unsigned int[nZeroMC];
-
-		MCZ = (int **)CArrayND<int>::CreateArray(2, this->nZeroMC, J); 
-		x2_NMax_J = (int**)CArrayND<int>::CreateArray(2, Nmis_max, J);
+    
+    MCZ_ND = CArrayND<int>::CreateArray(2, this->nZeroMC, J);
+    MCZ = (int **)MCZ_ND->data;
+    x2_NMax_J_ND =CArrayND<int>::CreateArray(2, Nmis_max, J);
+    x2_NMax_J = (int**)x2_NMax_J_ND->data;
+		//MCZ = (int **)CArrayND<int>::CreateArray(2, this->nZeroMC, J); 
+		//x2_NMax_J = (int**)CArrayND<int>::CreateArray(2, Nmis_max, J);
 		//copy MCZ
 		std::copy(MCZ_[0], MCZ_[0] + this->nZeroMC * J, this->MCZ[0]); 
 	} else {
 		this->Nmis = 0;
 		this->N_mis_max = 0;
 	}
-	
-	xIJ = (int **)CArrayND<int>::CreateArray(2, n, J); 
+	xIJ_ND = CArrayND<int>::CreateArray(2, n, J);
+	xIJ = (int **)xIJ_ND->data; 
 	//fill x with data
 	std::copy(x[0], x[0] + this->n * J, xIJ[0]); //NOTE THAT HERE X INCLUDES MISSING VALUES!!! HAVE TO INITIALIZE.
 	
