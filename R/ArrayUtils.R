@@ -65,15 +65,46 @@
 .dataframe2matrix <- function(d){
 	return(.fn_dataframe2num_matrix(d, offset = -1, missing=-1, 	C_style=T))
 }
+
 CreateModel <- function(X,MCZ,K, Nmax, aalpha, balpha) {
+  if (!is.data.frame(X)) {
+    stop(simpleError("Input data must be a data.frame object"));
+  } else {
+    col_names <- names(X)
+    is_factor <- sapply(X[,col_names], is.factor)
+    if (any(!is_factor)) {
+      stop(simpleError("All columns in input dataframe must be factors"));
+    }
+    if (dim(X)[2] > dim(X)[1]) {
+      stop(simpleError("Please make sure each be an observation in input data"));
+    }
+  }
   if (is.null(MCZ)) {
     Nmax <- 0
+  } else {
+    if (!is.data.frame(MCZ)) {
+      stop(simpleError("Input MCZ must be a data.frame object"));
+    } else {
+      col_names <- names(MCZ)
+      is_factor <- sapply(MCZ[,col_names], is.factor)
+      if (any(!is_factor)) {
+        stop(simpleError("All columns in input MCZ dataframe must be factors"));
+      }
+    } 
+    if (dim(MCZ)[2] != dim(X)[2]) {
+      stop(simpleError("Input Data and MCZ dimensions do not match"));
+    }
   }
-	x <- .dataframe2matrix(X)
-	mcz <- .dataframe2matrix(MCZ)
-	model <- new(Lcm,x,mcz,K, Nmax, aalpha, balpha)
-	model$SetXAsDataframe(X)
-	return(model)
+  
+  if (K <=1) {
+    stop(simpleError("Number of components must be at least 2"));
+  }
+  
+  x <- .dataframe2matrix(X)
+  mcz <- .dataframe2matrix(MCZ)
+  model <- new(Lcm,x,mcz,K, Nmax, aalpha, balpha)
+  model$SetXAsDataframe(X)
+  return(model)
 }
 GetDataFrame <- function(dest, from, cols = 1:NCOL(from)){
   t <- dest + 1
