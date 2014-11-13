@@ -1,4 +1,4 @@
-b69ceeb8e052f6a907efece92320e97f *DESCRIPTION
+45acb1763233c9abe497fc47f9580dfa *DESCRIPTION
 f1f9d4f156cdf0d22ba4273ae33923d8 *NAMESPACE
 b4de5524cc742a918efde39458cbddf1 *R/ArrayUtils.R
 d6251fc798b6ac6363f709cac343f10b *R/zzz.R
@@ -7,13 +7,13 @@ b9cec561ef3906c31db8b8a98cc340ef *data/NYexample.RData
 c8c2af52a68ee8312991fdb4dbfbd700 *demo/example.R
 d6614e7178db5ebcfd40eb38746bc538 *demo/example_short.R
 6ef25cbd362ff3b4c3a70a4a5bc02434 *inst/doc/LCM_Zeros_Imputation_RMaterial.pdf
-d1cf51447f59300d63728f0682b7f989 *man/CreateModel.Rd
+c638db8871b04753164b2bd1fe4c468f *man/CreateModel.Rd
 b2e2894ce02e94e474f2cc3afdca66b8 *man/GetDataFrame.Rd
-6f9027c0f32aff3a52ef5b2396288025 *man/GetMCZ.Rd
+e1930bfeae5cdd68ee0b2d6f23131654 *man/GetMCZ.Rd
 ad9a2a9ddcedee1bdcb51f7f86fa1d83 *man/Lcm.Rd
 3df110291bab6d0b1dfc010502b85a91 *man/MCZ.Rd
-105a3c3156e2c7ffbaa7d332765d271a *man/NPBayesImput-package.Rd
-291a62be91147b720bb9046e8d071585 *man/Rcpp_Lcm-class.Rd
+ba54f773d34e8faab3475284f5774fcf *man/NPBayesImput-package.Rd
+1b21a3cc1828233bfac4fcd0c137c358 *man/Rcpp_Lcm-class.Rd
 7b110dae3cce0c362a62d6d2355a1b73 *man/Rcpp_Lcm.Rd
 6b542702fd8c499c0e242bd211b4b300 *man/X.Rd
 9c05474bc329d7688ca8280da7492d85 *src/CArrayND.h

@@ -77,7 +77,9 @@ IX <- GetDataFrame(result$ImputedX,X)
 Rcpp_lcm objects should be created with \link{CreateModel}. Please see the examples in the demo folder for more detailed explanation on model fitting and parameter tracing.
 }
 \references{
-  Manrique-Vallier, D. and Reiter, J.P. (2013), "Bayesian Estimation of Discrete Multivariate Latent Structure Models with Structural Zeros", JCGS. 
-  \cr
+ Manrique-Vallier, D. and Reiter, J.P. (2013), "Bayesian Estimation of Discrete Multivariate Latent Structure Models with Structural Zeros", JCGS. 
+  \cr\cr
+  Si, Y. and Reiter, J.P. (2013), "Nonparametric Bayesian multiple imputation for incomplete categorical variables in large-scale assessment surveys", Journal of Educational and Behavioral Statistics, 38, 499 - 521 
+  \cr\cr
   Manrique-Vallier, D. and Reiter, J.P. (2014), "Bayesian Multiple Imputation for Large-Scale Categorical Data with Structural Zeros", Survey Methodology.
 }
