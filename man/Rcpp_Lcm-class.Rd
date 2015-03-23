@@ -15,20 +15,21 @@ All reference classes extend and inherit methods from \code{"\linkS4class{envRef
 
 \examples{
 require(NPBayesImpute)
-data('NYexample')
+#Please use NYexample data set for a more realistic example
+data('NYMockexample')
 
 #create the model
-model <- CreateModel(X,MCZ,100,200000,0.25,0.25)
-#run 1 burnin, 20 mcmc iterations and thin every 2 iterations. 
-#MCMC should be much longer when fitting real data 
-model$Run(1,20,2)
+model <- CreateModel(X,MCZ,10,10000,0.25,0.25)
+
+#run 1 burnins, 2 mcmc iterations and thin every 2 iterations
+model$Run(1,2,2)
 
 #retrieve parameters from the final iteration
 result <- model$snapshot
 
 #convert ImputedX matrix to dataframe, using proper factors/names etc.
-IX <- GetDataFrame(result$ImputedX,X)
-#View(IX)
+ImputedX <- GetDataFrame(result$ImputedX,X)
+#View(ImputedX)
 }
 
 \keyword{classes}

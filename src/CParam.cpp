@@ -68,7 +68,7 @@ void CParam::class_construct(int Nmis_max, int** MCZ_, int nZeroMC, int **x){
 	//initialize members.
 	this->nZeroMC = nZeroMC;
 	if (nZeroMC > 0) {
-		this->Nmis = Nmis;
+		//this->Nmis = Nmis;
 		this->N_mis_max = Nmis_max;
 		//allocate extra.
 		pZeroMC_I = new double[nZeroMC];
