@@ -50,6 +50,7 @@ public:
 	void Process_MC();
 	void SetData(int *x_flat, int J, int n, int* ZeroMC_flat, int nZeroMC, int *levels);
 	void SetData(std::vector<int>& x_flat, int J, int n, std::vector<int>& ZeroMC_flat, int nZeroMC, std::vector<int>& levels);
+	void UpdateX(std::vector<int>& x_flat); // only for Nicole Dalzell 
 };
 
 #endif  //_CDATA_H

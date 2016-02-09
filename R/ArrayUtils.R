@@ -66,7 +66,8 @@
 	return(.fn_dataframe2num_matrix(d, offset = -1, missing=-1, 	C_style=T))
 }
 
-CreateModel <- function(X,MCZ,K, Nmax, aalpha, balpha) {
+.checkx <- function(X) {
+  # the same check as in CreateModel. 
   if (!is.data.frame(X)) {
     stop(simpleError("Input data must be a data.frame object"));
   } else {
@@ -79,6 +80,15 @@ CreateModel <- function(X,MCZ,K, Nmax, aalpha, balpha) {
       stop(simpleError("Please make sure each be an observation in input data"));
     }
   }
+}
+UpdateX <- function(model,X) {
+  .checkx(X)
+  x <- .dataframe2matrix(X)
+  model$UpdateX(x)
+}
+
+CreateModel <- function(X,MCZ,K, Nmax, aalpha, balpha) {
+  .checkx(X)
   if (is.null(MCZ)) {
     Nmax <- 0
   } else {

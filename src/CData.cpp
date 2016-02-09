@@ -83,6 +83,9 @@ void CData::SetData(int *x_flat, int J, int n, int* ZeroMC_flat, int nZeroMC, in
 		}
 	}
 }
+void CData::UpdateX(std::vector<int>& x_flat) {
+  std::copy(x_flat.begin(), x_flat.end(), this->x[0]); 
+}
 
 void CData::SetData(std::vector<int>& x_flat, int J, int n, std::vector<int>& ZeroMC_flat, int nZeroMC, std::vector<int>& levels){
 	//have to set: J, levels, L, x, n
@@ -117,3 +120,4 @@ void CData::SetData(std::vector<int>& x_flat, int J, int n, std::vector<int>& Ze
 		}
 	}
 }
+

@@ -366,3 +366,10 @@ std::vector<std::string>  CEnv::traceable(){
 void CEnv::SetXAsDataframe(Rcpp::DataFrame X_df) {
 	mX_df = X_df;
 }
+
+void CEnv::UpdateX(Rcpp::IntegerMatrix x_) {
+  intvec x = Rcpp::as<intvec>(x_);
+  data->UpdateX(x);
+  m->par->UpdateX(data,m->mt);
+  //Rprintf( "Data updated.\n");
+}

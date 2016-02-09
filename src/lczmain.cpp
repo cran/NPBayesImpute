@@ -43,7 +43,7 @@ RCPP_MODULE(clcm){
 	.method( "SetTrace", &CEnv::SetTrace, "Set parameters to be traced" )
 	.method( "GetTrace", &CEnv::GetTrace, "Get parameters to be traced" )
 	.method( "SetXAsDataframe", &CEnv::SetXAsDataframe, "test" )
-	
+  .method( "UpdateX", &CEnv::UpdateX, "Update X data frame" )
 	.method( "Run", &CEnv::Run, "Run MCMC")
 	.method( "Resume", &CEnv::Resume, "Resume MCMC")
 

@@ -1,37 +1,12 @@
 /*
  * Copyright (C) 2007-2014 Daniel Manrique-Vallier
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- * Modified by Quanli Wang, 2014
+ * Modified by Quanli Wang, 2014, 2016
+ * 
  */ 
 #include "CData.h"
 #include "CParam.h"
 #include "margin_conditions.h"
 CParam::~CParam() {
-	/*
-	delete [] zI;
-	delete [] nuK;
-	delete [] log_nuK;
-	delete [] countK;
-
-
-	delete [] pZeroMC_I;
-	delete [] z2_Nmax;
-
-	delete [] count_partition;
-	*/
   delete aux_dirCumJK_ND;
   delete  psiJKL_ND;
   delete xIJ_ND;
@@ -59,8 +34,6 @@ void CParam::class_construct(int J, int K, int L, int *levelsJ, int *cumLevelsJ,
   aux_dirCumJK = (int **)aux_dirCumJK_ND->data;
   psiJKL_ND = CArrayND<double>::CreateArray(2, cumLevelsJ[J], K);
   psiJKL = (double **)psiJKL_ND->data;
-	//aux_dirCumJK = (int **)CArrayND<int>::CreateArray(2, cumLevelsJ[J], K);
-	//psiJKL = (double **) CArrayND<double>::CreateArray(2, cumLevelsJ[J], K);
 }
 
 void CParam::class_construct(int Nmis_max, int** MCZ_, int nZeroMC, int **x){
@@ -79,8 +52,6 @@ void CParam::class_construct(int Nmis_max, int** MCZ_, int nZeroMC, int **x){
     MCZ = (int **)MCZ_ND->data;
     x2_NMax_J_ND =CArrayND<int>::CreateArray(2, Nmis_max, J);
     x2_NMax_J = (int**)x2_NMax_J_ND->data;
-		//MCZ = (int **)CArrayND<int>::CreateArray(2, this->nZeroMC, J); 
-		//x2_NMax_J = (int**)CArrayND<int>::CreateArray(2, Nmis_max, J);
 		//copy MCZ
 		std::copy(MCZ_[0], MCZ_[0] + this->nZeroMC * J, this->MCZ[0]); 
 	} else {
@@ -94,6 +65,40 @@ void CParam::class_construct(int Nmis_max, int** MCZ_, int nZeroMC, int **x){
 	
 }
 
+void CParam::UpdateX(CData* dat,MTRand & mt) {
+  //fill x with data
+  std::copy(dat->x[0], dat->x[0] + n * J, xIJ[0]); 
+  
+  //Need to add the code below to reinitlize xIJ, etc when there are misisng values and MCZ
+  //Discuss with Nicole later
+  if (this->nZeroMC > 0)  {
+    std::vector<double> p(this->L); //reserve at least the maximum number of levels.
+    std::fill(p.begin(), p.end(), 1.0);
+    //Initialize values for xIJ.
+    bool badvalue;
+    for(int i = 0; i < n; ++i){
+      std::vector<int> x_working(xIJ[i], xIJ[i]+J);
+      do{
+        for (int j = 0; j < J; ++j){
+          if (xIJ[i][j] == -1) {
+            x_working[j] =SpecialFunctions::discreterand(this->levelsJ[j], &(p[0]),mt);
+          }
+        }
+        //check
+        badvalue = false;
+        if (this->nZeroMC > 0) {
+          for (int ii  = 0; ii < this->nZeroMC; ++ii){
+            if (!check_x_notin_mu(x_working.begin(), x_working.end(), MCZ[ii])) {
+              badvalue = true; 
+              break; 
+            }
+          }
+        }
+      } while ( badvalue );
+      std::copy<std::vector<int>::iterator, int*>(x_working.begin(), x_working.end(), xIJ[i]);
+    }  
+  }
+}
 void CParam::initizalize(MTRand& mt){
 	//Initializes the parameters for the chain.
 	int j,k,l;

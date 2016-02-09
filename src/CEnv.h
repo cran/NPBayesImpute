@@ -55,6 +55,7 @@ class CEnv
 public:
 	CEnv(Rcpp::IntegerMatrix x_, Rcpp::IntegerMatrix mcz_, int K, int Nmis_max,  double a_alpha, double b_alpha);
 	void SetXAsDataframe(Rcpp::DataFrame X_df);
+	void UpdateX(Rcpp::IntegerMatrix x_);
 	~CEnv(void);
 	void Update();
 	void Initialize(int nWarming);

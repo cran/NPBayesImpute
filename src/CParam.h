@@ -36,6 +36,7 @@ public:
 				class_construct(dat->J,  K, dat->L, dat->levelsJ, dat->cumLevelsJ,dat->n);	
 		class_construct(Nmis_max, dat->ZeroMC_IJ, dat->nZeroMC, dat->x);
 	}
+  void UpdateX(CData* dat, MTRand & mt); // only for Nicole Dalzell 
 	virtual ~CParam(); //Destructor
 
 	int *zI; //(z_i = k) i=1..N_MAX //just n
